@@ -68,13 +68,31 @@ class TreeNode {
     if (this.#root != null) {
       this.#x = this.#root.getX();
       this.#y = this.#root.getY() + 2 * this.#root.getHeight();
-      this.#root.#addChild(this)
+      this.#root.#addChild(this);
     }
   }
 
   #addChild(childNode) {
-    this.#children.push(childNode);
+
+    const childrenSize = this.#children.length
+
+    if (childrenSize <= 0) {
+      this.#children.push(childNode);
+      return;
+    }
+
+    if (this.#children.length % 2 == 0) {
+      const lastNode = this.#children[childrenSize-1];
+      childNode.#x = lastNode.getX() + lastNode.getWidth() + 30;
+      this.#children.push(childNode);
+    } else {
+      const firstNode = this.#children[0];
+      childNode.#x = firstNode.getX() - 30 - childNode.getWidth();
+      this.#children.unshift(childNode);
+    }
+
   }
+
 }
 
 let rootNode;
@@ -90,9 +108,12 @@ function setup() {
   );
 
   rootNode = TreeNode.createNodeWithLabel("PREFEITURA DE SÃO LUÍS");
-  console.log(rootNode);
   TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
-  console.log(rootNode.getChildren());
+  TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
+  TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
+  TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
 }
 
 function windowResized() {
@@ -104,11 +125,28 @@ function draw() {
   clear();
   background(0);
   textAlign(CENTER, CENTER);
-  rect(rootNode.getX(), rootNode.getY(), rootNode.getWidth(), rootNode.getHeight());
-  text(rootNode.getLabel(), rootNode.getX(), rootNode.getY(), rootNode.getWidth(), rootNode.getHeight());
+  rect(
+    rootNode.getX(),
+    rootNode.getY(),
+    rootNode.getWidth(),
+    rootNode.getHeight()
+  );
+  text(
+    rootNode.getLabel(),
+    rootNode.getX(),
+    rootNode.getY(),
+    rootNode.getWidth(),
+    rootNode.getHeight()
+  );
   let children = rootNode.getChildren();
   for (node of children) {
     rect(node.getX(), node.getY(), node.getWidth(), node.getHeight());
-    text(node.getLabel(), node.getX(), node.getY(), node.getWidth(), node.getHeight());
+    text(
+      node.getLabel(),
+      node.getX(),
+      node.getY(),
+      node.getWidth(),
+      node.getHeight()
+    );
   }
 }
