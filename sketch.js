@@ -1,38 +1,83 @@
-class Node {
-  constructor(options) {
-    const defaultOpts = {
-      father: null,
-      x: width / 2 - 50,
-      y: 50,
-      w: 100,
-      h: 50,
-      children: new Array(0),
-      label: "",
-    };
+class TreeNode {
+  #root;
+  getRoot = function () {
+    return this.#root;
+  };
+  #x;
+  getX = function () {
+    return this.#x;
+  };
+  #y;
+  getY = function () {
+    return this.#y;
+  };
+  #w;
+  getWidth = function () {
+    return this.#w;
+  };
+  #h;
+  getHeight = function () {
+    return this.#h;
+  };
+  #children;
+  getChildren = function () {
+    return this.#children.map((node) => node);
+  };
+  #label;
+  getLabel = function () {
+    return this.#label;
+  };
 
-    let opts = Object.assign({}, defaultOpts, options);
-    this.father = opts.father;
-    this.label = opts.label;
-    this.x = opts.x;
-    this.y = opts.y;
-    this.w = opts.w;
-    this.h = opts.h;
-    this.children = opts.children;
+  static createNodeWithLabel(label) {
+    return new TreeNode(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      label
+    );
+  }
 
-    if (this.father != null) {
-      this.x = father.x;
-      this.y = father.y + 2 * father.h;
+  static createNodeWithLabelAndRoot(label, root) {
+    return new TreeNode(
+      root,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      label
+    );
+  }
+
+  constructor(root, x, y, w, h, children, label) {
+    this.#label = typeof label == "string" ? label : "";
+    this.#x = typeof x == "number" ? x : width / 2 - 50;
+    this.#y = typeof y == "number" ? y : 50;
+    this.#w = typeof w == "number" ? w : 100;
+    this.#h = typeof h == "number" ? h : 50;
+    this.#children = typeof children != "undefined" ? children : new Array();
+    this.setRoot(root);
+  }
+
+  setRoot(root) {
+    this.#root = typeof root != "undefined" ? root : null;
+
+    if (this.#root != null) {
+      this.#x = this.#root.getX();
+      this.#y = this.#root.getY() + 2 * this.#root.getHeight();
+      this.#root.#addChild(this)
     }
   }
 
-  addChild(childNode) {
-    childNode.father = this;
-    this.children.push(childNode);
+  #addChild(childNode) {
+    this.#children.push(childNode);
   }
 }
 
-let table;
-let father;
+let rootNode;
 
 function setup() {
   createCanvas(
@@ -44,23 +89,26 @@ function setup() {
       document.body.clientHeight
   );
 
-  father = new Node({ label: "PREFEITURA DE SAO LUIS" });
-  father.addChild(new Node({ label: "SECRETARIA DE ADMINISTRACAO" }));
-  console.log(father.children);
+  rootNode = TreeNode.createNodeWithLabel("PREFEITURA DE SÃO LUÍS");
+  console.log(rootNode);
+  TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
+  console.log(rootNode.getChildren());
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  father.x = width / 2 - 50;
+  rootNode.x = width / 2 - 50;
 }
 
 function draw() {
-  background(100);
+  clear();
+  background(0);
   textAlign(CENTER, CENTER);
-  rect(father.x, father.y, father.w, father.h);
-  text(father.label, father.x, father.y, father.w, father.h);
-}
-
-function calculaArea(base, altura) {
-  return base * altura;
+  rect(rootNode.getX(), rootNode.getY(), rootNode.getWidth(), rootNode.getHeight());
+  text(rootNode.getLabel(), rootNode.getX(), rootNode.getY(), rootNode.getWidth(), rootNode.getHeight());
+  let children = rootNode.getChildren();
+  for (node of children) {
+    rect(node.getX(), node.getY(), node.getWidth(), node.getHeight());
+    text(node.getLabel(), node.getX(), node.getY(), node.getWidth(), node.getHeight());
+  }
 }
