@@ -8,13 +8,15 @@
   --spacing-xlarge: 32px;
 
   --card-border-radius: 12px;
-  --card-bg-color: rgb(229, 228, 228);
 
   --color-primary: #131316;
   --color-secondary: rgb(55, 55, 58);
+  --color-tertiary: white;
   --color-accent: rgb(1, 1, 156);
   --color-accent-hover: rgba(1, 1, 156, 0.364);
-  --color-content-over-primary-dark: white;
+  --color-content-over-primary: white;
+  --color-content-over-secondary: white;
+  --color-content-over-tertiary: black;
 }
 
 * {
@@ -28,7 +30,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   background-color: var(--color-secondary);
-  color: var(--color-content-over-primary-dark);
+  color: var(--color-content-over-primary);
 }
 
 .card:hover {
@@ -39,7 +41,9 @@ body {
   background-color: var(--color-primary);
   width: 100vw;
   height: 100vh;
-  font-family: sans-serif;
+  font-family: "Nanum Gothic", sans-serif;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
 header {
@@ -54,11 +58,18 @@ header {
 }
 
 h1 {
-  font-size: 1.3em;
+  font-size: 24px;
   justify-content: center;
   text-align: center;
   font-family: "Nanum Gothic", sans-serif;
 }
+
+h2 {
+    font-size: 18px;
+    justify-content: center;
+    text-align: center;
+    font-family: "Nanum Gothic", sans-serif;
+  }
 
 .main-container {
   display: flex;
@@ -66,7 +77,7 @@ h1 {
   margin-left: var(--spacing-medium);
   margin-top: var(--spacing-small);
   gap: var(--spacing-small);
-  height: 90vh;
+  height: 85vh;
 }
 
 .lateral-bar {
@@ -91,19 +102,19 @@ h1 {
 }
 
 .lateral-bar-item:nth-child(n) {
-    animation-duration: 300ms;
+  animation-duration: 300ms;
 }
 .lateral-bar-item:nth-child(2) {
-    animation-duration: 400ms;
+  animation-duration: 400ms;
 }
 .lateral-bar-item:nth-child(3) {
-    animation-duration: 500ms;
+  animation-duration: 500ms;
 }
 .lateral-bar-item:nth-child(4) {
-    animation-duration: 600ms;
+  animation-duration: 600ms;
 }
 .lateral-bar-item:nth-child(5) {
-    animation-duration: 700ms;
+  animation-duration: 700ms;
 }
 
 @media (prefers-reduced-motion) {
@@ -112,30 +123,46 @@ h1 {
   }
 }
 
-hr {
+.inputs, .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-small);
+  margin: var(--spacing-small);
   margin-top: var(--spacing-medium);
 }
 
-.input-box {
+.flex-divider {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.input-box, .info-box {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xsmall);
-  font-size: 0.8em;
-  font-family: monospace;
+  font-size: 10px;
   font-weight: bold;
 }
 
-.input-box label {
+.input-box label, .info-box label {
   margin-left: var(--spacing-xsmall);
 }
 
-.input-box input {
+.input-box input, .info-box input {
   border-width: 2px;
   border-radius: var(--card-border-radius);
   padding: var(--spacing-small);
-  font-size: 0.8em;
   font-family: monospace;
 }
+
+.info h2 {
+    text-align: center;
+    align-self: center;
+}
+
 
 .input-box input:hover {
   box-shadow: 0px 2px 2px 0px var(--color-accent-hover);
@@ -145,36 +172,48 @@ hr {
   box-shadow: 0px 2px 2px 0px var(--color-accent-hover);
 }
 
-.input-box input::-webkit-input-placeholder {
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transition: all 1s;
 }
 
-.input-box input::-moz-placeholder {
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
-}
-
-.input-box input:focus::-webkit-input-placeholder {
-  opacity: 1;
-  transition-delay: 0.2s;
-}
-
-.input-box input:focus::-moz-placeholder {
-  opacity: 1;
-  transition-delay: 0.2s;
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transition: all 1s;
 }
 
 .hierachy-content {
-  padding: var(--spacing-small);
-  background-color: var(--color-secondary);
-  flex-grow: 1;
+    padding: var(--spacing-small);
+    background-color: var(--color-secondary);
+    flex-grow: 1;
+  }
+
+.hierarchy-card{
+    position: relative;
+    min-width: 100px;
+    max-width: 100px;
+    max-height: 50px;
+    min-height: 50px;
+    padding: var(--spacing-xsmall);
+    background-color: var(--color-tertiary);
+    color: var(--color-content-over-tertiary);
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
 }
 
-.inputs {
-  display: flexbox;
-  justify-content: center;
-  align-items: center;
-  margin: var(--spacing-small);
-  margin-top: var(--spacing-medium);
+.hierarchy-card span {
+    text-align: center;
+    text-overflow: ellipsis;
+    height: 100%;
+}
+
+.red-element {
+    background-color: red;
 }

@@ -10,37 +10,50 @@
   </head>
   <body>
     <header class="card">
-      <h1>Visualizador de Hierarquia Pais</h1>
+      <h1>💩🌳💩 Visualizador de Hierarquia Pais 💩🌳💩</h1>
     </header>
 
     <main>
       <section>
         <div class="main-container">
           <div class="lateral-bar card">
-            <div class="inputs">
-              <form>
+            <form>
+              <div class="inputs">
                 <div class="input-box lateral-bar-item">
                   <label for="cod-pai">Código Pai</label>
                   <input id="cod-pai" placeholder="Ex.: 100" />
                 </div>
-                <hr class="lateral-bar-item" />
-                <div class="input-box lateral-bar-item">
-                  <label for="cod-pai">Código Pai</label>
-                  <input id="cod-pai" placeholder="Ex.: 100" />
+                <div class="flex-divider lateral-bar-item">
+                  <hr />
                 </div>
-                <div class="input-box lateral-bar-item">
-                  <label for="cod-pai">Código Pai</label>
-                  <input id="cod-pai" placeholder="Ex.: 100" />
+              </div>
+              <div class="info lateral-bar-item hidden">
+                <h2>Dados</h2>
+                <div class="info-box lateral-bar-item">
+                  <label>Id Cliente:</label>
+                  <input id="id-cliente" type="text" disabled = true/>
                 </div>
-                <div class="input-box lateral-bar-item">
-                  <label for="cod-pai">Código Pai</label>
-                  <input id="cod-pai" placeholder="Ex.: 100" />
+                <div class="info-box lateral-bar-item">
+                  <label>Nome Cliente:</label>
+                  <input id="nome-cliente" type="text" disabled = true/>
                 </div>
-              </form>
-            </div>
+                <div class="info-box lateral-bar-item">
+                  <label>Matrícula:</label>
+                  <input id="matrícula" type="text" disabled = true/>
+                </div>
+                <div class="info-box lateral-bar-item">
+                  <label>Usuário:</label>
+                  <input id="usuario" type="text" disabled = true/>
+                </div>
+              </div>
+            </form>
           </div>
 
-          <div class="card hierachy-content"></div>
+          <div id="hierarchy-host" class="card hierachy-content">
+            <div class="hierarchy-card card">
+                <span>PREFEITURA DE SÃO LUÍS</span>
+            </div>
+          </div>
         </div>
       </section>
     </main>
