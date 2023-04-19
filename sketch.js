@@ -103,11 +103,14 @@ class TreeNode {
 
 new ResizeObserver(() => {
   rootNode = TreeNode.createNodeWithLabel("PREFEITURA DE SÃO LUÍS");
-  TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
+  const sisterNode = TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
   TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
   TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
   TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
-  const brotherNode = TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
+  const brotherNode = TreeNode.createNodeWithLabelAndRoot(
+    "PRAÇA GON DIAS",
+    rootNode
+  );
   const nextNode = TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
   const thirdNode = TreeNode.createNodeWithLabelAndRoot("TESTE2", nextNode);
   TreeNode.createNodeWithLabelAndRoot("TESTE5", nextNode);
@@ -117,39 +120,51 @@ new ResizeObserver(() => {
   TreeNode.createNodeWithLabelAndRoot("TESTE3", thirdNode);
   TreeNode.createNodeWithLabelAndRoot("TESTE4", thirdNode);
 
+  TreeNode.createNodeWithLabelAndRoot("TESTE9", sisterNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE10", sisterNode);
+
   hierarchyHost.innerHTML = "";
   hierarchyHost.appendChild(
-    createRow().appendChild(createTreeNodeGraphics(rootNode))
+    createRow(0).appendChild(createTreeNodeGraphics(rootNode))
   );
   if (rootNode.getChildren().length > 0) {
     hierarchyHost.appendChild(createDivider());
-    buildTree(hierarchyHost, rootNode);
+    buildTree(hierarchyHost, rootNode, 1);
   }
 }).observe(hierarchyHost);
 
-function buildTree(host, node) {
-  const childHierarchyRow = createRow();
-
-  childHierarchyRow.appendChild(createVerticalDivider());
-  node.getChildren().forEach((chl) => {
-    childHierarchyRow.appendChild(
-      createRow().appendChild(createTreeNodeGraphics(chl))
-    );
-  });
-  childHierarchyRow.appendChild(createVerticalDivider());
+function buildTree(host, node, level) {
+  const existingRow = document.getElementById("row" + level);
+  let rowExist = false;
+  let childHierarchyRow;
+  if (typeof existingRow != "undefined" && existingRow != null) {
+    childHierarchyRow = existingRow;
+    rowExist = true;
+  } else {
+    childHierarchyRow = createRow(level);
+  }
 
   if (node.getChildren().length > 0) {
-    host.appendChild(childHierarchyRow);
-    host.appendChild(createDivider());
+    if (rowExist) childHierarchyRow.appendChild(createVerticalDivider());
+    node.getChildren().forEach((chl) => {
+      childHierarchyRow.appendChild(createTreeNodeGraphics(chl));
+    });
+    // childHierarchyRow.appendChild(createVerticalDivider());
+
+    if (!rowExist) {
+      host.appendChild(childHierarchyRow);
+      host.appendChild(createDivider());
+    }
   }
 
   node.getChildren().forEach((chl) => {
-    buildTree(host, chl);
+    buildTree(host, chl, level + 1);
   });
 }
 
-function createRow() {
+function createRow(level) {
   const row = document.createElement("div");
+  row.id = "row" + level;
   row.classList.add("hierarchy-row");
   return row;
 }
