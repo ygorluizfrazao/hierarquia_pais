@@ -64,7 +64,6 @@ class TreeNode {
   constructor(root, x, y, w, h, children, label) {
     this.#label = typeof label == "string" ? label : "";
     this.#x = typeof x == "number" ? x : hierarchyHost.offsetWidth / 2 - 50;
-    console.log(hierarchyHost.offsetWidth / 2 - 50);
     this.#y = typeof y == "number" ? y : 50;
     this.#w = typeof w == "number" ? w : 100;
     this.#h = typeof h == "number" ? h : 50;
@@ -108,27 +107,80 @@ new ResizeObserver(() => {
   TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
   TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
   TreeNode.createNodeWithLabelAndRoot("SECRETARIA DE ADMINISTRACAO", rootNode);
-  TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
-  TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
+  const brotherNode = TreeNode.createNodeWithLabelAndRoot("PRAÇA GONÇALVES DIAS", rootNode);
+  const nextNode = TreeNode.createNodeWithLabelAndRoot("TESTE", rootNode);
+  const thirdNode = TreeNode.createNodeWithLabelAndRoot("TESTE2", nextNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE5", nextNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE6", nextNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE7", brotherNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE8", brotherNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE3", thirdNode);
+  TreeNode.createNodeWithLabelAndRoot("TESTE4", thirdNode);
+
   hierarchyHost.innerHTML = "";
-
-  createTreeNodeGraphics(hierarchyHost, rootNode);
-
-  rootNode.getChildren().forEach((chl) => {
-    createTreeNodeGraphics(hierarchyHost, chl);
-  });
+  hierarchyHost.appendChild(
+    createRow().appendChild(createTreeNodeGraphics(rootNode))
+  );
+  if (rootNode.getChildren().length > 0) {
+    hierarchyHost.appendChild(createDivider());
+    buildTree(hierarchyHost, rootNode);
+  }
 }).observe(hierarchyHost);
 
-function createTreeNodeGraphics(host, node) {
-  let treenode = document.createElement("div");
+function buildTree(host, node) {
+  const childHierarchyRow = createRow();
+
+  childHierarchyRow.appendChild(createVerticalDivider());
+  node.getChildren().forEach((chl) => {
+    childHierarchyRow.appendChild(
+      createRow().appendChild(createTreeNodeGraphics(chl))
+    );
+  });
+  childHierarchyRow.appendChild(createVerticalDivider());
+
+  if (node.getChildren().length > 0) {
+    host.appendChild(childHierarchyRow);
+    host.appendChild(createDivider());
+  }
+
+  node.getChildren().forEach((chl) => {
+    buildTree(host, chl);
+  });
+}
+
+function createRow() {
+  const row = document.createElement("div");
+  row.classList.add("hierarchy-row");
+  return row;
+}
+
+function createDivider() {
+  const divider = document.createElement("div");
+  divider.classList.add("flex-divider");
+  divider.appendChild(document.createElement("hr"));
+  return divider;
+}
+
+function createVerticalDivider() {
+  const divider = document.createElement("div");
+  divider.classList.add("flex-divider-vertical");
+  return divider;
+}
+
+function createTreeNodeGraphics(node) {
+  const treenode = document.createElement("div");
   treenode.classList.add("hierarchy-card");
   treenode.classList.add("card");
-  // treenode.style.left = host.offsetLeft+node.getX() + "px";
-  // treenode.style.top = host.offsetTop+node.getY() + "px";
-  treenode.style.left = node.getX() + "px";
-  treenode.style.top = node.getY() + "px";
-  let treenodeContent = document.createElement("span");
+
+  if (node.getRoot() != null) {
+    const rootnodeContent = document.createElement("span");
+    rootnodeContent.innerHTML = node.getRoot().getLabel();
+    rootnodeContent.style.fontSize = "6px";
+    rootnodeContent.style.fontWeight = "bolder";
+    treenode.appendChild(rootnodeContent);
+  }
+  const treenodeContent = document.createElement("span");
   treenodeContent.innerHTML = node.getLabel();
   treenode.appendChild(treenodeContent);
-  host.appendChild(treenode);
+  return treenode;
 }

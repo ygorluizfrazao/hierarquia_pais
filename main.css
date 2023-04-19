@@ -27,14 +27,14 @@
 
 .card {
   border-radius: var(--card-border-radius);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.3);
   transition: 0.3s;
   background-color: var(--color-secondary);
   color: var(--color-content-over-primary);
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.3);
 }
 
 body {
@@ -65,11 +65,11 @@ h1 {
 }
 
 h2 {
-    font-size: 18px;
-    justify-content: center;
-    text-align: center;
-    font-family: "Nanum Gothic", sans-serif;
-  }
+  font-size: 18px;
+  justify-content: center;
+  text-align: center;
+  font-family: "Nanum Gothic", sans-serif;
+}
 
 .main-container {
   display: flex;
@@ -85,7 +85,7 @@ h2 {
   flex-grow: 0;
 }
 
-@keyframes lateral-bar-item-animation {
+@keyframes fall-in-animation {
   from {
     filter: blur(4px);
     top: -200px;
@@ -95,13 +95,13 @@ h2 {
   }
 }
 
-.lateral-bar-item {
+.lateral-bar-item, .hierarchy-row, .hierarchy-card{
   position: relative;
-  animation-name: lateral-bar-item-animation;
+  animation-name: fall-in-animation;
   animation-duration: 500ms;
 }
 
-.lateral-bar-item:nth-child(n) {
+.lateral-bar-item:nth-child(1) {
   animation-duration: 300ms;
 }
 .lateral-bar-item:nth-child(2) {
@@ -123,7 +123,8 @@ h2 {
   }
 }
 
-.inputs, .info {
+.inputs,
+.info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -139,7 +140,8 @@ h2 {
   width: 100%;
 }
 
-.input-box, .info-box {
+.input-box,
+.info-box {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xsmall);
@@ -147,11 +149,13 @@ h2 {
   font-weight: bold;
 }
 
-.input-box label, .info-box label {
+.input-box label,
+.info-box label {
   margin-left: var(--spacing-xsmall);
 }
 
-.input-box input, .info-box input {
+.input-box input,
+.info-box input {
   border-width: 2px;
   border-radius: var(--card-border-radius);
   padding: var(--spacing-small);
@@ -159,10 +163,9 @@ h2 {
 }
 
 .info h2 {
-    text-align: center;
-    align-self: center;
+  text-align: center;
+  align-self: center;
 }
-
 
 .input-box input:hover {
   box-shadow: 0px 2px 2px 0px var(--color-accent-hover);
@@ -173,47 +176,64 @@ h2 {
 }
 
 .hidden {
-    opacity: 0;
-    filter: blur(5px);
-    transition: all 1s;
+  opacity: 0;
+  filter: blur(5px);
+  transition: all 1s;
 }
 
 .show {
-    opacity: 1;
-    filter: blur(0);
-    transition: all 1s;
+  opacity: 1;
+  filter: blur(0);
+  transition: all 1s;
 }
 
-.hierachy-content {
-    padding: var(--spacing-small);
-    background-color: var(--color-secondary);
-    flex-grow: 1;
+.hierarchy-content {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-small);
+  background-color: var(--color-secondary);
+  flex-grow: 1;
+  align-items: center;
+  gap: var(--spacing-medium);
+}
+
+.hierarchy-row {
+  display: flex;
+  padding: var(--spacing-small);
+  background-color: var(--color-secondary);
+  gap: var(--spacing-small);
+}
+
+.flex-divider-vertical {
+    flex-shrink: 0;
+    width: 1px;
+    background-color: var(--color-content-over-primary);
   }
 
-.hierarchy-card{
-    position: relative;
-    min-width: 100px;
-    max-width: 100px;
-    max-height: 50px;
-    min-height: 50px;
-    padding: var(--spacing-xsmall);
-    background-color: var(--color-tertiary);
-    color: var(--color-content-over-tertiary);
-    font-family: "Nanum Gothic", sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
+.hierarchy-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  max-width: 100px;
+  max-height: 50px;
+  min-height: 50px;
+  padding: var(--spacing-xsmall);
+  background-color: var(--color-tertiary);
+  color: var(--color-content-over-tertiary);
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 10px;
+  align-items: center;
 }
 
 .hierarchy-card span {
-    text-align: center;
-    text-overflow: ellipsis;
-    height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  text-align: center;
+  text-overflow: ellipsis;
+  flex-grow: 1;
 }
 
 .red-element {
-    background-color: red;
+  background-color: red;
 }
