@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.js"></script>
-    <script src="./sketch.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="./sketch.js"></script>
+    <link rel="stylesheet" href="/main.css" />
     <title>Hierarquia Pais</title>
-</head>
-<body>
+  </head>
+  <body>
+    <header class="card">
+      <h1>Visualizador de Hierarquia Pais</h1>
+    </header>
 
-</body>
+    <main>
+      <section>
+        <div class="main-container">
+          <div class="lateral-bar card">
+            <div class="inputs">
+              <form>
+                <div class="input-box lateral-bar-item">
+                  <label for="cod-pai">Código Pai</label>
+                  <input id="cod-pai" placeholder="Ex.: 100" />
+                </div>
+                <hr class="lateral-bar-item" />
+                <div class="input-box lateral-bar-item">
+                  <label for="cod-pai">Código Pai</label>
+                  <input id="cod-pai" placeholder="Ex.: 100" />
+                </div>
+                <div class="input-box lateral-bar-item">
+                  <label for="cod-pai">Código Pai</label>
+                  <input id="cod-pai" placeholder="Ex.: 100" />
+                </div>
+                <div class="input-box lateral-bar-item">
+                  <label for="cod-pai">Código Pai</label>
+                  <input id="cod-pai" placeholder="Ex.: 100" />
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card hierachy-content"></div>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
