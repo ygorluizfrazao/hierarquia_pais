@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="./sketch.js"></script>
+    <script defer src="./main.js" type="module"></script>
     <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="file-chooser/file-chooser.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>Hierarquia Pais</title>
   </head>
   <body>
@@ -19,9 +24,25 @@
           <div class="lateral-bar card">
             <form>
               <div class="inputs">
+                <div class="input-box lateral-bar-item">                  
+                  <div class="file-chooser" id = "file-chooser-1">
+                    <input type="file" id="file-chooser-file-input" class="file-chooser-file-input"/>
+                    <div class="file-chooser-column-layout">
+                      <label for="file-chooser-file-input">File</label>
+                      <div class="file-chooser-row-layout">
+                        <button type="button" class="file-chooser-search-btn">
+                          <span class="material-icons">
+                            search
+                            </span>
+                        </button>
+                        <input type="text" disabled="true" class="file-chooser-textfield" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="input-box lateral-bar-item">
                   <label for="cod-pai">Código Pai</label>
-                  <input id="cod-pai" placeholder="Ex.: 100" />
+                  <input type="text" id="cod-pai" placeholder="Ex.: 100" />
                 </div>
                 <div class="flex-divider lateral-bar-item">
                   <hr />
@@ -52,6 +73,9 @@
           <div id="hierarchy-host" class="card hierarchy-content">
             <div class="hierarchy-row">
               <div class="hierarchy-card card">
+                <div class="hierarchy-card-title">
+                  <span>TITLE</span>
+                </div>
                 <span>PREFEITURA DE SÃO LUÍS</span>
               </div>
             </div>
@@ -60,17 +84,22 @@
             </div>
             <div class="hierarchy-row">
               <div class="hierarchy-card card">
+                <div class="hierarchy-card-title">
+                  <span>TITLE</span>
+                </div>
                 <span>TESTE</span>
               </div>
-              <div class="flex-divider-vertical">
-              </div>
+              <div class="flex-divider-vertical"></div>
               <div class="hierarchy-card card">
+                <div class="hierarchy-card-title">
+                  <span>TITLE</span>
+                </div>
                 <span>TESTE</span>
               </div>
             </div>
             <div class="flex-divider">
-                <hr />
-              </div>
+              <hr />
+            </div>
           </div>
         </div>
       </section>

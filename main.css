@@ -75,8 +75,8 @@ h2 {
   display: flex;
   margin-right: var(--spacing-medium);
   margin-left: var(--spacing-medium);
-  margin-top: var(--spacing-small);
-  gap: var(--spacing-small);
+  margin-top: var(--spacing-medium);
+  gap: var(--spacing-medium);
   height: 85vh;
 }
 
@@ -95,7 +95,9 @@ h2 {
   }
 }
 
-.lateral-bar-item, .hierarchy-row, .hierarchy-card{
+.lateral-bar-item,
+.hierarchy-row,
+.hierarchy-card {
   position: relative;
   animation-name: fall-in-animation;
   animation-duration: 500ms;
@@ -195,20 +197,22 @@ h2 {
   flex-grow: 1;
   align-items: center;
   gap: var(--spacing-medium);
+  overflow: visible;
 }
 
 .hierarchy-row {
   display: flex;
+  flex-wrap: wrap;
   padding: var(--spacing-small);
   background-color: var(--color-secondary);
   gap: var(--spacing-small);
 }
 
 .flex-divider-vertical {
-    flex-shrink: 0;
-    width: 1px;
-    background-color: var(--color-content-over-primary);
-  }
+  flex-shrink: 0;
+  width: 1px;
+  background-color: var(--color-content-over-primary);
+}
 
 .hierarchy-card {
   display: flex;
@@ -217,23 +221,34 @@ h2 {
   max-width: 100px;
   max-height: 50px;
   min-height: 50px;
-  padding: var(--spacing-xsmall);
   background-color: var(--color-tertiary);
   color: var(--color-content-over-tertiary);
   font-family: "Nanum Gothic", sans-serif;
   font-size: 10px;
-  align-items: center;
+}
+
+.hierarchy-card-title {
+  background-color: var(--color-accent);
+  color: var(--color-content-over-secondary);
+  width: 100%;
+  min-height: 20%;
+  padding-left: var(--spacing-xsmall);
+  padding-right: var(--spacing-xsmall);
+  padding-bottom: var(--spacing-xsmall);
+  text-align: center;
+  font-size: 7px;
+  font-weight: bolder;
+  border-radius: var(--card-border-radius) var(--card-border-radius) 0 0;
 }
 
 .hierarchy-card span {
   display: inline-block;
   vertical-align: middle;
+  padding-left: var(--spacing-xsmall);
+  padding-right: var(--spacing-xsmall);
+  padding-top: var(--spacing-xsmall);
   line-height: normal;
   text-align: center;
   text-overflow: ellipsis;
-  flex-grow: 1;
 }
 
-.red-element {
-  background-color: red;
-}
