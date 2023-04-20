@@ -7,7 +7,7 @@ export default class TreeNode {
   getChildren = function () {
     return this.#children.map((node) => node);
   };
-  
+
   #label;
   getLabel = function () {
     return this.#label;
